@@ -8,8 +8,8 @@ from nested_lookup import nested_lookup #extrae valor de listas y bibliotecas an
 import telepot,telebot #envía mensajes a Telegram
 import hmac, hashlib
 from urllib.parse import urlencode
-KEY = yourkey
-SECRET = yoursecret
+KEY = 'yourkey'
+SECRET = 'yoursecret'
 #*************************************************
 def hashing(query_string):
     return hmac.new(SECRET.encode('utf-8'), query_string.encode('utf-8'), hashlib.sha256).hexdigest()
@@ -37,7 +37,7 @@ def send_signed_request(http_method, url_path, payload={}, URL=''):
 	return response.json()
 #*************************************************
 def BinanceBalance():
-	from funciones import EnviarTelegram
+	from Tickets.Soldout_module import EnviarTelegram
 
 	#Balance en Binance margin
 	for x in range(10):
@@ -72,7 +72,7 @@ def BinanceBalance():
 	return(BalanceMargen,BalanceBTC,BalanceUSDT)
 #*************************************************
 def BinanceMargin(DesdeDonde):
-	from funciones import EnviarTelegram,LocalCall
+	from Tickets.Soldout_module import EnviarTelegram,LocalCall
 
 	#Determino balance en Binance
 	BalanceMargen,BalanceSpot,BalanceUSDT = BinanceBalance()
@@ -168,7 +168,7 @@ def BinanceMargin(DesdeDonde):
 	EnviarTelegram(cadena)
 #*************************************************
 def BinanceDepositarFuturo(AmountSent):
-	from funciones import EnviarTelegram
+	from Tickets.Soldout_module import EnviarTelegram
 
 	#Transferis de Spot a Future
 	params = {'asset':'BTC','amount':AmountSent,'type':3}
@@ -182,7 +182,7 @@ def BinanceDepositarFuturo(AmountSent):
 			break
 #*************************************************
 def BinanceExtraerFuturo(AmountSent):
-	from funciones import EnviarTelegram
+	from Tickets.Soldout_module import EnviarTelegram
 
 	#Transferis de Spot a Future
 	params = {'asset':'BTC','amount':AmountSent,'type':4}
@@ -196,7 +196,7 @@ def BinanceExtraerFuturo(AmountSent):
 			break
 #*************************************************
 def BinancePosition():
-	from funciones import EnviarTelegram,LocalCall
+	from Tickets.Soldout_module import EnviarTelegram,LocalCall
 
 	#Determino balance en Binance
 	BalanceMargen,BalanceSpot,BalanceUSDT = BinanceBalance()

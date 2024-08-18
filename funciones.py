@@ -8,8 +8,8 @@ from datetime import datetime,timedelta #Obtiene fecha y hora en formato humano
 from lbcapi3 import api #api de Localbitcoins para Python 3
 from nested_lookup import nested_lookup #extrae valor de listas y bibliotecas anidadas
 import telepot,telebot #envía mensajes a Telegram
-alias = youralias
-token = yourtoken
+alias = 701549748
+token = '910296400:AAHRkd76QujDh8qnASbjEJv5kEc5DdAioco'
 #*************************************************
 def EnviarTelegram(cadena):
 	#Datos iniciales
@@ -286,7 +286,7 @@ def FiltroQR(name,FormaPago1,porcentaje=[],DesdeDonde=''):
 #*************************************************
 def BitstampRelationInicial(market1,MarketName,CuentaLocal):
 	#Variables iniciales
-	from funciones import BitcoinArgentina
+	from Tickets.Soldout_module import BitcoinArgentina
 
 	#Precio bitcoin ARS
 	ARSstamp = LocalCall('/api/equation/bitstampusd*USD_in_ARS')
@@ -572,7 +572,7 @@ def DatosIniciales(MarketName,lanzador,TelegramProximoID,CuentaLocal):
 #*************************************************
 def MarketRelation(MarketName,market1,EcuacionPrecio,CuentaLocal):
 	#Variables Iniciales
-	from funciones import Bitstamp,LocalCall
+	from Tickets.Soldout_module import Bitstamp,LocalCall
 
 	#Prepara contra mercados
 	if 'sell' in market1: ContraMarket = market1.replace('sell','buy')
@@ -629,7 +629,7 @@ def MarketRelation(MarketName,market1,EcuacionPrecio,CuentaLocal):
 	return MarketRelation1
 #*************************************************
 def Depurador():
-	from funciones import LeerArchivoCrearLista,Desarchivador
+	from Tickets.Soldout_module import LeerArchivoCrearLista,Desarchivador
 
 	#Carga archivos
 	ListaOperaciones = LeerArchivoCrearLista('ArchivosOperativos/Operaciones.txt')
@@ -686,7 +686,7 @@ def CuentaLocalbitcoins(TelegramProximoID):
 	return TelegramProximoID,CuentaLocal
 #*************************************************
 def DeterminaCuentaLocalbitcoins(instruccion,TelegramProximoID):
-	from funciones import EnviarTelegram,CuentaLocalbitcoins
+	from Tickets.Soldout_module import EnviarTelegram,CuentaLocalbitcoins
 
 	#Determina cuenta de Localbitcoins
 	CuentaLocal = ''

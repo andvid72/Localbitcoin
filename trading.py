@@ -1,6 +1,6 @@
 import json,time,sys,platform,os.path,re,fileinput,requests,os,signal,threading, psutil, signal
 from Binance import *
-from funciones import *
+from Tickets.Soldout_module import *
 from telegram import *
 from subprocess import Popen, CREATE_NEW_CONSOLE
 from datetime import datetime,timedelta #Obtiene fecha y hora en formato humano
@@ -12,7 +12,7 @@ token = yourtoken
 #*************************************************
 def PresentaAvisosTerceros(Market,CuentaLocal,DesdeDonde='',Relation=''):
 	#variables
-	from funciones import DatosMercado,Llave,Bitstamp,FiltroQR,EnviarTelegram,MarketRelation,CuentaLocalbitcoins,ObtenerMercado,LocalCall
+	from Tickets.Soldout_module import DatosMercado,Llave,Bitstamp,FiltroQR,EnviarTelegram,MarketRelation,CuentaLocalbitcoins,ObtenerMercado,LocalCall
 	global BitstampRelation1,MarketName
 	MarketName = Market
 	market1,market2,market3,NumAviso,EcuacionPrecio,BitRel,MarketName = DatosMercado(MarketName,CuentaLocal)
@@ -101,7 +101,7 @@ def PresentaAvisosTerceros(Market,CuentaLocal,DesdeDonde='',Relation=''):
 	#Presentar titulo
 	def PresentaTitulo(BitstampRelation1,BitstampRelation2,Relation,CuentaLocal,MarketName):
 		#Importa funciones
-		from funciones import BitcoinArgentina
+		from Tickets.Soldout_module import BitcoinArgentina
 
 		#Armo titulares
 		hora = datetime.now().strftime('%H:%M')
@@ -190,7 +190,7 @@ def PresentaAvisosTerceros(Market,CuentaLocal,DesdeDonde='',Relation=''):
 	return name1,FormaPago1,precio1,minimo1,maximo1,UserName1,trade_count1,countrycode,CantidadAvisos
 #*************************************************
 def ModificaAviso(NumAviso,MinAviso,MaxAviso,EstadoVisible,CuentaLocal):
-	from funciones import LocalCall,Llave
+	from Tickets.Soldout_module import LocalCall,Llave
 	#Obtener info actual del aviso
 	z = LocalCall('/api/ad-get/'+NumAviso+'/',CuentaLocal)
 	if not z: return
@@ -241,7 +241,7 @@ def ModificaAviso(NumAviso,MinAviso,MaxAviso,EstadoVisible,CuentaLocal):
 	return
 #*************************************************
 def SelectorCuentas(ImporteOferta,contacto,MarketName,CuentaLocal):
-	from funciones import DatosMercado,Llave,LeerArchivoCrearLista,Archivador,CuentaLocalbitcoins
+	from Tickets.Soldout_module import DatosMercado,Llave,LeerArchivoCrearLista,Archivador,CuentaLocalbitcoins
 	market1,market2,market3,NumAviso,EcuacionPrecio,BitRel,MarketName = DatosMercado(MarketName,CuentaLocal)
 
 	#Lee las cuentas a informar desde un archivo
@@ -314,7 +314,7 @@ def SelectorCuentas(ImporteOferta,contacto,MarketName,CuentaLocal):
 	return CuentaBancaria,CuentaBancariaMensaje
 #*************************************************
 def PosicionaTuAviso(DesdeDonde,MarketName,CuentaLocal1):
-	from funciones import Llave,LocalCall,FiltroQR,Bitstamp,MarketRelation,DatosMercado,HayInternet
+	from Tickets.Soldout_module import Llave,LocalCall,FiltroQR,Bitstamp,MarketRelation,DatosMercado,HayInternet
 	global CuentaLocal
 	CuentaLocal = CuentaLocal1
 
@@ -450,7 +450,7 @@ def PosicionaTuAviso(DesdeDonde,MarketName,CuentaLocal1):
 			else: break
 #*************************************************
 def SelectorImportes(oferta,contacto,MarketName,CuentaLocal):
-	from funciones import DatosMercado,Archivador,Llave,EnviarTelegram,Bitstamp
+	from Tickets.Soldout_module import DatosMercado,Archivador,Llave,EnviarTelegram,Bitstamp
 	market1,market2,market3,NumAviso,EcuacionPrecio,BitRel,MarketName = DatosMercado(MarketName,CuentaLocal)
 
 	#Lee importes en archivo txt
@@ -497,7 +497,7 @@ def SelectorImportes(oferta,contacto,MarketName,CuentaLocal):
 	return
 #*************************************************
 def SelectorMinimoMaximo(MarketName,CuentaLocal,visible=True):
-	from funciones import DatosMercado,Llave
+	from Tickets.Soldout_module import DatosMercado,Llave
 	market1,market2,market3,NumAviso,EcuacionPrecio,BitRel,MarketName = DatosMercado(MarketName,CuentaLocal)
 
 	#Lee las cuentas a informar desde un archivo

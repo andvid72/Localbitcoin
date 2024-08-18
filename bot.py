@@ -1,10 +1,11 @@
 #Importa funciones
 import json,time,sys,platform,os.path,re,fileinput,requests,os,signal,threading, psutil
 from Binance import *
-from funciones import *
+from Tickets.Soldout_module import *
 from telegram import *
 from trading import *
 from respuesta import *
+from funciones import *
 from subprocess import Popen, CREATE_NEW_CONSOLE
 from datetime import datetime,timedelta #Obtiene fecha y hora en formato humano
 from lbcapi3 import api #api de Localbitcoins para Python 3

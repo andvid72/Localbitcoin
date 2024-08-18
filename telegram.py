@@ -1,18 +1,20 @@
 #Importa funciones
 import json,time,sys,platform,os.path,re,fileinput,requests,os,signal,threading, psutil, signal
 from Binance import *
-from funciones import *
+from Tickets.Soldout_module import *
 from trading import *
 from subprocess import Popen, CREATE_NEW_CONSOLE
 from datetime import datetime,timedelta #Obtiene fecha y hora en formato humano
 from lbcapi3 import api #api de Localbitcoins para Python 3
 from nested_lookup import nested_lookup #extrae valor de listas y bibliotecas anidadas
 import telepot,telebot #envía mensajes a Telegram
-alias = youralias
-token = yourtoken
+alias = 701549748
+token = '910296400:AAHRkd76QujDh8qnASbjEJv5kEc5DdAioco'
+aliasAugu = 1684836450
+tokenAugu = '1857137625:AAExcInbDRZcUpEu9Wj01YMFrNfwkz_9pCs'
 #*************************************************
 def TelegramPanel(TelegramProximoID,instruccion):
-	from funciones import Llave,EnviarTelegram,DeterminaCuentaLocalbitcoins
+	from Tickets.Soldout_module import Llave,EnviarTelegram,DeterminaCuentaLocalbitcoins
 
 	#Determina cuenta de Localbitcoins
 	CuentaLocal,TelegramProximoID = DeterminaCuentaLocalbitcoins(instruccion,TelegramProximoID)
@@ -65,7 +67,7 @@ def TelegramPanel(TelegramProximoID,instruccion):
 	return TelegramProximoID
 #*************************************************
 def TelegramAyuda():
-	from funciones import EnviarTelegram
+	from Tickets.Soldout_module import EnviarTelegram
 	ayudin1 = ['DASH: ordenes abiertas','PANEL: avisos activos','LBTC TRANSACCIONES','UMBRALES MODIFICAR','AVISO depo','COMPRA PAYTIZ']
 	ayudin2 = ['RENTA: compra venta por monedero','IMPORTES paypal 200 500','VOLUMEN ars','HORARIO paypal si/no','UMBRALES VER']
 	ayudin3 = ['ACTIVAR paypal','DESACTIVAR paypal','BOOK ars','CHAT contacto','VOLUMEN 24 ars','BOT terminales activas']
@@ -111,7 +113,7 @@ def TelegramBinanceExtraerFuturo(TelegramProximoID):
 #*************************************************
 def TelegramPorcentaje(instruccion,TelegramProximoID):
 	#Inicializo Variables
-	from funciones import DatosMercado,EnviarTelegram,MarketRelation,DeterminaCuentaLocalbitcoins
+	from Tickets.Soldout_module import DatosMercado,EnviarTelegram,MarketRelation,DeterminaCuentaLocalbitcoins
 
 	#Determina cuenta de Localbitcoins
 	CuentaLocal,TelegramProximoID = DeterminaCuentaLocalbitcoins(instruccion,TelegramProximoID)
@@ -175,7 +177,7 @@ def TelegramPorcentaje(instruccion,TelegramProximoID):
 	return TelegramProximoID
 #*************************************************
 def TelegramRenta(ProximoID):
-	from funciones import DatosMercado,EnviarTelegram
+	from Tickets.Soldout_module import DatosMercado,EnviarTelegram
 	from trading import PresentaAvisosTerceros
 	global TelegramProximoID
 	TelegramProximoID = ProximoID
@@ -223,7 +225,7 @@ def TelegramRenta(ProximoID):
 	return TelegramProximoID
 #*************************************************
 def TelegramCuenta(instruccion,TelegramProximoID):
-	from funciones import DatosMercado,Archivador,EnviarTelegram,SelectorMinimoMaximo,LocalCall,DeterminaCuentaLocalbitcoins
+	from Tickets.Soldout_module import DatosMercado,Archivador,EnviarTelegram,SelectorMinimoMaximo,LocalCall,DeterminaCuentaLocalbitcoins
 	from trading import SelectorMinimoMaximo
 
 	#Determina cuenta de Localbitcoins
@@ -299,7 +301,7 @@ def TelegramCuenta(instruccion,TelegramProximoID):
 	return TelegramProximoID
 #*************************************************
 def TelegramNuevosimportes(instruccion,TelegramProximoID):
-	from funciones import DatosMercado,EnviarTelegram,DeterminaCuentaLocalbitcoins
+	from Tickets.Soldout_module import DatosMercado,EnviarTelegram,DeterminaCuentaLocalbitcoins
 
 	#Determina cuenta de Localbitcoins
 	CuentaLocal,TelegramProximoID = DeterminaCuentaLocalbitcoins(instruccion,TelegramProximoID)
@@ -339,7 +341,7 @@ def TelegramNuevosimportes(instruccion,TelegramProximoID):
 	return MarketName,TelegramProximoID,CuentaLocal
 #*************************************************
 def TelegramDesactivar(instruccion,TelegramProximoID):
-	from funciones import DatosMercado,LeerArchivoCrearLista,EnviarTelegram,DeterminaCuentaLocalbitcoins
+	from Tickets.Soldout_module import DatosMercado,LeerArchivoCrearLista,EnviarTelegram,DeterminaCuentaLocalbitcoins
 
 	#Determina cuenta de Localbitcoins
 	CuentaLocal,TelegramProximoID = DeterminaCuentaLocalbitcoins(instruccion,TelegramProximoID)
@@ -365,7 +367,7 @@ def TelegramDesactivar(instruccion,TelegramProximoID):
 	return NumAviso,TelegramProximoID,CuentaLocal
 #*************************************************
 def TelegramReactiva(instruccion,TelegramProximoID,CuentaLocal=''):
-	from funciones import DatosMercado,EnviarTelegram,DeterminaCuentaLocalbitcoins
+	from Tickets.Soldout_module import DatosMercado,EnviarTelegram,DeterminaCuentaLocalbitcoins
 
 	#Determina cuenta de Localbitcoins
 	CuentaLocal,TelegramProximoID = DeterminaCuentaLocalbitcoins(instruccion,TelegramProximoID)
@@ -387,7 +389,7 @@ def TelegramReactiva(instruccion,TelegramProximoID,CuentaLocal=''):
 	return TelegramProximoID
 #*************************************************
 def TelegramActiva(instruccion,TelegramProximoID):
-	from funciones import DatosMercado,EnviarTelegram,DeterminaCuentaLocalbitcoins
+	from Tickets.Soldout_module import DatosMercado,EnviarTelegram,DeterminaCuentaLocalbitcoins
 
 	#Determina cuenta de Localbitcoins
 	CuentaLocal,TelegramProximoID = DeterminaCuentaLocalbitcoins(instruccion,TelegramProximoID)
@@ -409,7 +411,7 @@ def TelegramActiva(instruccion,TelegramProximoID):
 	return TelegramProximoID
 #*************************************************
 def TelegramBalance(TelegramProximoID):
-	from funciones import LocalCall,EnviarTelegram,BitcoinArgentina,Bitstamp
+	from Tickets.Soldout_module import LocalCall,EnviarTelegram,BitcoinArgentina,Bitstamp
 	from Binance import BinanceBalance
 	EnviarTelegram('Se inicia determinación de estado en todas las cuentas!')
 
@@ -464,7 +466,7 @@ def TelegramBalance(TelegramProximoID):
 	return TelegramProximoID
 #*************************************************
 def TelegramMensaje(instruccion):
-	from funciones import Llave,EnviarTelegram,DeterminaContacto
+	from Tickets.Soldout_module import Llave,EnviarTelegram,DeterminaContacto
 
 	#Evalua si está construida correctamente la instruccion
 	try: instruccion.index(':')
@@ -490,7 +492,7 @@ def TelegramMensaje(instruccion):
 	except:	return
 #*************************************************
 def TelegramFoto(response,TextCounter,file_id):
-	from funciones import Llave,EnviarTelegram,DeterminaContacto
+	from Tickets.Soldout_module import Llave,EnviarTelegram,DeterminaContacto
 	bot = telepot.Bot(token)
 	bot2 = telepot.Bot(tokenAugu)
 
@@ -529,7 +531,7 @@ def TelegramFoto(response,TextCounter,file_id):
 	except: pass
 #*************************************************
 def TelegramDashboard(instruccion,TelegramProximoID):
-	from funciones import EnviarTelegram,DeterminaCuentaLocalbitcoins
+	from Tickets.Soldout_module import EnviarTelegram,DeterminaCuentaLocalbitcoins
 
 	#Determina cuenta de Localbitcoins
 	CuentaLocal,TelegramProximoID = DeterminaCuentaLocalbitcoins(instruccion,TelegramProximoID)
@@ -572,7 +574,7 @@ def TelegramDashboard(instruccion,TelegramProximoID):
 	return TelegramProximoID
 #*************************************************
 def TelegramContactoAbierto(instruccion,TelegramProximoID):
-	from funciones import Llave,EnviarTelegram,LocalCall,LeerArchivoCrearLista,Desarchivador,DeterminaContacto
+	from Tickets.Soldout_module import Llave,EnviarTelegram,LocalCall,LeerArchivoCrearLista,Desarchivador,DeterminaContacto
 
 	#Determino Cuenta Local
 	contacto,CuentaLocal = DeterminaContacto(instruccion)
@@ -679,7 +681,7 @@ def TelegramContactoAbierto(instruccion,TelegramProximoID):
 def Repreguntador(cadena,accion,TelegramProximoID):
 
 	def Preguntador(cadena,accion,ProximoID):
-		from funciones import EnviarTelegram
+		from Tickets.Soldout_module import EnviarTelegram
 		global TelegramProximoID
 		TelegramProximoID = ProximoID
 		bot = telepot.Bot(token)
@@ -760,7 +762,7 @@ def Repreguntador(cadena,accion,TelegramProximoID):
 	return RtaRecibida,TelegramProximoID
 #*************************************************
 def TelegramCompra(ProximoID):
-	from funciones import Llave,LocalCall,EnviarTelegram,BitcoinArgentina,Bitstamp
+	from Tickets.Soldout_module import Llave,LocalCall,EnviarTelegram,BitcoinArgentina,Bitstamp
 	global TelegramProximoID
 	TelegramProximoID = ProximoID
 
@@ -834,7 +836,7 @@ def TelegramCompra(ProximoID):
 	return TelegramProximoID
 #*************************************************
 def TelegramCompraPaytiz():
-	from funciones import Llave,LocalCall,EnviarTelegram,BitcoinArgentina,Bitstamp
+	from Tickets.Soldout_module import Llave,LocalCall,EnviarTelegram,BitcoinArgentina,Bitstamp
 	cadena = ''
 
 	#Determino precio de Tether
@@ -884,7 +886,7 @@ def TelegramCompraPaytiz():
 #*************************************************
 def TelegramBook(instruccion,DesdeDonde=''):
 	#Variables
-	from funciones import Llave,LocalCall,EnviarTelegram
+	from Tickets.Soldout_module import Llave,LocalCall,EnviarTelegram
 
 	#Busca currency
 	currencies = ['ARS','USD','EUR','CAD','BRL','ZAR','AUD','GBP','PAB','COP','CLP','RBL','PAYPAL','PAYONEER','PAXUM','SKRILL','NETELLER','ZELLE','ETH','XRP','']
@@ -997,7 +999,7 @@ def TelegramBook(instruccion,DesdeDonde=''):
 #*************************************************
 def TelegramChat(instruccion):
 	#Variables
-	from funciones import Llave,LocalCall,EnviarTelegram,DeterminaContacto
+	from Tickets.Soldout_module import Llave,LocalCall,EnviarTelegram,DeterminaContacto
 
 	#Obtengo contacto y cuenta local
 	contacto,CuentaLocal = DeterminaContacto(instruccion)
@@ -1023,7 +1025,7 @@ def TelegramChat(instruccion):
 #*************************************************
 def TelegramVolume(instruccion):
 	#Variables
-	from funciones import Llave,LocalCall,EnviarTelegram,Bitstamp
+	from Tickets.Soldout_module import Llave,LocalCall,EnviarTelegram,Bitstamp
 
 	#Busca currency
 	currencies = ['ARS','USD','EUR','CAD','BRL','ZAR','AUD','GBP','PAB','COP','CLP','RBL','ETH','XRP','']
@@ -1062,7 +1064,7 @@ def TelegramVolume(instruccion):
 #*************************************************
 def TelegramVolumen24(instruccion):
 	#Variables
-	from funciones import Llave,LocalCall,EnviarTelegram,Bitstamp
+	from Tickets.Soldout_module import Llave,LocalCall,EnviarTelegram,Bitstamp
 
 	#Busca currency
 	currencies = ['ARS','USD','EUR','CAD','BRL','ZAR','AUD','GBP','PAB','COP','CLP','RBL','ETH','XRP','LTC']
@@ -1113,7 +1115,7 @@ def TelegramVolumen24(instruccion):
 #*************************************************
 def TelegramLBTCtransacciones(instruccion,TelegramProximoID):
 	#Variables
-	from funciones import LocalCall,EnviarTelegram,DeterminaCuentaLocalbitcoins
+	from Tickets.Soldout_module import LocalCall,EnviarTelegram,DeterminaCuentaLocalbitcoins
 
 	#Determina cuenta de Localbitcoins
 	CuentaLocal,TelegramProximoID = DeterminaCuentaLocalbitcoins(instruccion,TelegramProximoID)
@@ -1141,7 +1143,7 @@ def TelegramLBTCtransacciones(instruccion,TelegramProximoID):
 #*************************************************
 def TelegramLBTCextraer(instruccion,TelegramProximoID):
 	#Variables
-	from funciones import EnviarTelegram,Llave,DeterminaCuentaLocalbitcoins,LocalCall
+	from Tickets.Soldout_module import EnviarTelegram,Llave,DeterminaCuentaLocalbitcoins,LocalCall
 
 	#Determina cuenta de Localbitcoins
 	CuentaLocal,TelegramProximoID = DeterminaCuentaLocalbitcoins(instruccion,TelegramProximoID)
@@ -1187,7 +1189,7 @@ def TelegramLBTCextraer(instruccion,TelegramProximoID):
 #*************************************************
 def TelegramHora(instruccion,TelegramProximoID):
 	#Variables
-	from funciones import Llave,EnviarTelegram,DatosMercado,LocalCall,DeterminaCuentaLocalbitcoins
+	from Tickets.Soldout_module import Llave,EnviarTelegram,DatosMercado,LocalCall,DeterminaCuentaLocalbitcoins
 
 	#Determina cuenta de Localbitcoins
 	CuentaLocal,TelegramProximoID = DeterminaCuentaLocalbitcoins(instruccion,TelegramProximoID)
@@ -1328,7 +1330,7 @@ def TelegramHora(instruccion,TelegramProximoID):
 	return TelegramProximoID
 #*************************************************
 def TelegramUmbrales(instruccion,TelegramProximoID):
-	from funciones import EnviarTelegram,Llave,LocalCall,SelectorMinimoMaximo,DeterminaCuentaLocalbitcoins
+	from Tickets.Soldout_module import EnviarTelegram,Llave,LocalCall,SelectorMinimoMaximo,DeterminaCuentaLocalbitcoins
 
 	#Determina cuenta de Localbitcoins
 	CuentaLocal,TelegramProximoID = DeterminaCuentaLocalbitcoins(instruccion,TelegramProximoID)
@@ -1404,7 +1406,7 @@ def TelegramUmbrales(instruccion,TelegramProximoID):
 #*************************************************
 def TelegramMailing(instruccion,TelegramProximoID):
 	#Variables
-	from funciones import Llave,LocalCall,EnviarTelegram,DatosMercado,CuentaLocalbitcoins
+	from Tickets.Soldout_module import Llave,LocalCall,EnviarTelegram,DatosMercado,CuentaLocalbitcoins
 
 	#Pregunta cuenta de Localbitcoins
 	TelegramProximoID,CuentaLocal = CuentaLocalbitcoins(TelegramProximoID)
@@ -1480,7 +1482,7 @@ def TelegramMailing(instruccion,TelegramProximoID):
 #*************************************************
 def TelegramCoti(instruccion):
 	#Variables
-	from funciones import EnviarTelegram
+	from Tickets.Soldout_module import EnviarTelegram
 
 	#Cotización base
 	coti = re.findall(r'[-+]?\d*\.?\d+|\d+',instruccion)
@@ -1495,7 +1497,7 @@ def TelegramCoti(instruccion):
 #*************************************************
 def TelegramAviso(instruccion,TelegramProximoID):
 	#Variables
-	from funciones import Llave,LocalCall,EnviarTelegram,DatosMercado,DeterminaCuentaLocalbitcoins
+	from Tickets.Soldout_module import Llave,LocalCall,EnviarTelegram,DatosMercado,DeterminaCuentaLocalbitcoins
 
 	#Determina cuenta de Localbitcoins
 	CuentaLocal,TelegramProximoID = DeterminaCuentaLocalbitcoins(instruccion,TelegramProximoID)
@@ -1513,7 +1515,7 @@ def TelegramAviso(instruccion,TelegramProximoID):
 #*************************************************
 def TelegramClienteVenta(instruccion,ProximoID):
 	#Variables
-	from funciones import EnviarTelegram
+	from Tickets.Soldout_module import EnviarTelegram
 	global TelegramProximoID
 	TelegramProximoID = ProximoID
 
@@ -1542,7 +1544,7 @@ def TelegramClienteVenta(instruccion,ProximoID):
 #*************************************************
 def TelegramClienteCompra(instruccion,ProximoID):
 	#Variables
-	from funciones import EnviarTelegram
+	from Tickets.Soldout_module import EnviarTelegram
 	global TelegramProximoID
 	TelegramProximoID = ProximoID
 
@@ -1570,7 +1572,7 @@ def TelegramClienteCompra(instruccion,ProximoID):
 #*************************************************
 def TelegramClienteDatos(instruccion):
 	#Variables
-	from funciones import EnviarTelegram
+	from Tickets.Soldout_module import EnviarTelegram
 
 	#Telegram
 	cadena0 = 'Tu nombre completo para agregarte a WSP?\n\n'
@@ -1582,7 +1584,7 @@ def TelegramClienteDatos(instruccion):
 	EnviarTelegram(cadena)
 #*************************************************
 def TelegramPaytiz(ProximoID):
-	from funciones import EnviarTelegram
+	from Tickets.Soldout_module import EnviarTelegram
 	global TelegramProximoID
 	TelegramProximoID = ProximoID
 
@@ -1631,7 +1633,7 @@ def TelegramPaytiz(ProximoID):
 	return TelegramProximoID
 #*************************************************
 def TelegramUSDT():
-	from funciones import EnviarTelegram,BitcoinArgentina,LocalCall,MarketRelation,Bitstamp
+	from Tickets.Soldout_module import EnviarTelegram,BitcoinArgentina,LocalCall,MarketRelation,Bitstamp
 
 	#Tether
 	PrecioArgentinaVenta = BitcoinArgentina()
@@ -1645,7 +1647,7 @@ def TelegramUSDT():
 	EnviarTelegram(cadena)
 #*************************************************
 def TelegramBot():
-	from funciones import EnviarTelegram,LeerArchivoCrearLista
+	from Tickets.Soldout_module import EnviarTelegram,LeerArchivoCrearLista
 
 	#Determino en qué usuario  hay operaciones activas
 	PidsMercados = LeerArchivoCrearLista('ArchivosOperativos/PidsMercados.txt')
@@ -1660,7 +1662,7 @@ def TelegramBot():
 #*************************************************
 def BTC():
 	#Variables
-	from funciones import EnviarTelegram
+	from Tickets.Soldout_module import EnviarTelegram
 	from Binance import send_signed_request
 
 	Index = send_signed_request('GET','/dapi/v1/premiumIndex')

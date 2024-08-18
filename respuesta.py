@@ -1,6 +1,6 @@
 import json, time, sys, platform, os, re, fileinput, requests, threading, ast
 from Binance import *
-from funciones import *
+from Tickets.Soldout_module import *
 from telegram import *
 from trading import *
 from datetime import datetime #Obtiene fecha y hora en formato humano
@@ -14,7 +14,7 @@ bot2 = telepot.Bot(tokenAugu)
 #*************************************************
 def PrimeraRespuesta(MarketName1,dash1,operaciones1,EsperaEmail1,CuentaLocal1):
 	#Variables
-	from funciones import DatosMercado,EnviarTelegram,Llave,Archivador
+	from Tickets.Soldout_module import DatosMercado,EnviarTelegram,Llave,Archivador
 	global dash,operaciones,EsperaEmail,contacto,amount,MarketName,CuentaLocal
 	dash = dash1; operaciones = operaciones1; EsperaEmail = EsperaEmail1; CuentaLocal = CuentaLocal1
 
@@ -137,7 +137,7 @@ def PrimeraRespuesta(MarketName1,dash1,operaciones1,EsperaEmail1,CuentaLocal1):
 #*************************************************
 def ComprarBTC(TraderName,email=''):
 	#Variables
-	from funciones import EnviarTelegram,Llave,Archivador,LocalCall
+	from Tickets.Soldout_module import EnviarTelegram,Llave,Archivador,LocalCall
 	from trading import SelectorImportes
 	global EsperaEmail
 
@@ -217,7 +217,7 @@ def SegundaRespuesta(email):
 #*************************************************
 def VenderBTC(TraderName):
 	#Variables
-	from funciones import EnviarTelegram,Llave,Archivador
+	from Tickets.Soldout_module import EnviarTelegram,Llave,Archivador
 	from trading import SelectorImportes
 
 	#Modifica txt
@@ -245,7 +245,7 @@ def VenderBTC(TraderName):
 #*************************************************
 def VenderArgentina(TraderName):
 	#Variables
-	from funciones import EnviarTelegram,Llave,Archivador
+	from Tickets.Soldout_module import EnviarTelegram,Llave,Archivador
 	from trading import SelectorCuentas,SelectorMinimoMaximo
 
 	#Registra nueva operación en archivo y en lista

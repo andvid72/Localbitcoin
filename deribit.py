@@ -1,5 +1,5 @@
 import json, time, sys, platform, os, re, fileinput, requests, threading, ast
-from funciones import *
+from Tickets.Soldout_module import *
 from telegram import *
 from trading import *
 from datetime import datetime #Obtiene fecha y hora en formato humano
@@ -26,7 +26,7 @@ def DeribitLiquidation():
 		else: break
 #*************************************************
 def DeribitMargin(DesdeDonde):
-	from funciones import EnviarTelegram
+	from Tickets.Soldout_module import EnviarTelegram
 
 	#Deribit account information
 	url = 'https://www.deribit.com/api/v2/'
@@ -83,7 +83,7 @@ def DeribitMargin(DesdeDonde):
 
 #*************************************************
 def DeribitDepositar(AmountSent):
-	from funciones import EnviarTelegram
+	from Tickets.Soldout_module import EnviarTelegram
 
 	#Deribit account information
 	url = 'https://www.deribit.com/api/v2/'
@@ -114,7 +114,7 @@ def DeribitDepositar(AmountSent):
 			break
 #*************************************************
 def DeribitPosition():
-	from funciones import EnviarTelegram
+	from Tickets.Soldout_module import EnviarTelegram
 
 	#Evaluo si hay dinero en Deribit
 	url = 'https://www.deribit.com/api/v2/'
@@ -239,7 +239,7 @@ def DeribitPosition():
 			continue
 #*************************************************
 def DeribitExtaer(amount,TelegramProximoID):
-	from funciones import EnviarTelegram
+	from Tickets.Soldout_module import EnviarTelegram
 
 	#Dirección Localbitcoin
 	address = '34BtHVDryRFxQksputNdVT5Shr5DM84Ejr'  #21 julio 2020
